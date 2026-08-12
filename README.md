@@ -202,3 +202,45 @@ Get-FileHash .\WeChatAIBot-v1.0.0.apk -Algorithm SHA256
 - 校验文件：[SHA256SUMS.txt](https://github.com/wxmyyds/WeChatAI-Releases/releases/download/v1.0.0/SHA256SUMS.txt)
 
 本仓库只提供编译产物。源代码维护在私有仓库中。
+
+## 第三方声明
+
+```text
+WeChatAI Third-Party Notices
+============================
+
+This file lists the principal third-party components used by WeChatAI.
+The corresponding upstream license terms remain authoritative.
+
+1. libxposed API 102.0.0
+   License: Apache License 2.0
+   Source: https://github.com/libxposed/api
+   License: https://www.apache.org/licenses/LICENSE-2.0
+
+2. OkHttp 4.12.0
+   License: Apache License 2.0
+   Source: https://github.com/square/okhttp
+   License: https://www.apache.org/licenses/LICENSE-2.0
+
+3. Gson 2.10.1
+   License: Apache License 2.0
+   Source: https://github.com/google/gson
+   License: https://www.apache.org/licenses/LICENSE-2.0
+
+4. DexKit 2.2.0
+   License boundary: the upstream repository root is Apache License 2.0;
+   the DexKit Core component carries LGPL-3.0 license information.
+   Source: https://github.com/LuckyPray/DexKit
+   Root license: https://github.com/LuckyPray/DexKit/blob/master/LICENSE
+   Core license: https://github.com/LuckyPray/DexKit/tree/master/Core
+   Published metadata: https://central.sonatype.com/artifact/org.luckypray/dexkit/2.2.0
+
+5. JUnit 4.13.2 (test dependency)
+   License: Eclipse Public License 1.0
+   Source: https://github.com/junit-team/junit4
+   License: https://www.eclipse.org/legal/epl-v10.html
+
+Transitive dependencies may have additional copyright and license notices.
+This notice is provided for attribution and does not replace the license
+texts distributed by the respective upstream projects.
+```
