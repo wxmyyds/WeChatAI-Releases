@@ -13,6 +13,8 @@ WeChatAI 是一个运行在 LSPosed 环境中的微信 AI 回复模块。
 - 支持关键词过滤
 - 支持引用消息回复
 - 支持会话上下文
+- 支持图片消息分析（默认关闭）
+- 支持图片大小和请求体大小限制
 - 支持日志级别和日志文件滚动
 
 ## 环境要求
@@ -58,12 +60,16 @@ WeChatAI 是一个运行在 LSPosed 环境中的微信 AI 回复模块。
   "api_key": "YOUR_API_KEY",
   "model": "gpt-3.5-turbo",
   "system_prompt": "请简洁、准确地回答问题。",
-  "context_max_messages": 20,
+  "model_context_chars": 32000,
   "reply_delay": 2000,
   "reply_friend_enabled": true,
   "reply_group_enabled": false,
   "reply_only_at": true,
   "reply_with_quote": false,
+  "image_enabled": false,
+  "image_max_bytes": 10485760,
+  "image_max_request_bytes": 16777216,
+  "image_use_mid": false,
   "friend_whitelist": "wxid_example",
   "group_whitelist": "",
   "filter_keywords": "",
@@ -90,16 +96,36 @@ WeChatAI 是一个运行在 LSPosed 环境中的微信 AI 回复模块。
 | `api_key` | API 密钥。请勿公开或提交到仓库。 |
 | `model` | 使用的模型名称。 |
 | `system_prompt` | 系统提示词，为空时不发送 system 消息。 |
-| `context_max_messages` | 每个会话保留的最大上下文消息数，`0` 表示不使用历史消息。 |
-| `reply_delay` | 回复延迟，单位为毫秒。 |
+| `model_context_chars` | 每个会话的上下文字符预算。`0` 表示不使用历史消息；有效非零范围为 `1000-4000000`。接近预算时会自动压缩历史。 |
+| `reply_delay` | 回复延迟，单位为毫秒，范围为 `0-60000`。 |
+| `max_response_bytes` | API 响应体最大字节数，范围为 `65536-16777216`。 |
 | `reply_friend_enabled` | 是否回复私聊消息。 |
 | `reply_group_enabled` | 是否回复群聊消息。 |
 | `reply_only_at` | 群聊中是否只回复被 `@` 的消息。 |
 | `reply_with_quote` | 是否使用微信引用消息功能。 |
+| `image_enabled` | 是否允许将微信图片上传给视觉 AI，默认关闭。关闭时不会处理图片消息。 |
+| `image_max_bytes` | 单张图片原文件最大字节数，范围为 `1-67108864`。超过后不上传。 |
+| `image_max_request_bytes` | Base64 编码后的图片最大字节数，范围为 `1-134217728`。超过后不上传。 |
+| `image_use_mid` | 原图未就绪时是否让微信通过官方接口单次下载中图，默认关闭。启用后仍使用正式图片路径读取，不使用缩略图。 |
 | `friend_whitelist` | 私聊白名单，多个微信 ID 使用英文逗号分隔。 |
 | `group_whitelist` | 群聊白名单，多个群 ID 使用英文逗号分隔。 |
 | `filter_keywords` | 关键词过滤，多个关键词使用英文逗号分隔；为空表示不启用。 |
 | `log_level` | 日志级别：`DEBUG`、`INFO`、`WARN`、`ERROR`、`NONE`。 |
+
+## 图片消息
+
+图片分析默认关闭。确认第三方 AI 服务允许上传图片，并了解其隐私政策后，再启用：
+
+```jsonc
+"image_enabled": true,
+"image_max_bytes": 10485760,
+"image_max_request_bytes": 16777216,
+"image_use_mid": false
+```
+
+图片读取使用微信的正式图片存储路径和 VFS 接口，不使用缩略图作为回退。`image_use_mid` 只控制原图未就绪时是否执行一次官方中图下载；它不会启用轮询、重复下载或重复处理同一条消息。图片路径仍未就绪时，模块会回复“图片暂未下载完成”。
+
+`image_enabled` 控制是否上传图片，`image_use_mid` 只控制是否允许这一次下载，两者互不替代。图片超过任一大小限制时，模块会回复“图片过大”。
 
 ## 白名单和关键词
 
