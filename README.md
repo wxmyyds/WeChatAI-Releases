@@ -223,9 +223,9 @@ Get-FileHash .\WeChatAIBot-v1.0.0.apk -Algorithm SHA256
 
 ## 发布信息
 
-- 当前正式版本：[v1.0.0](https://github.com/wxmyyds/WeChatAI-Releases/releases/tag/v1.0.0)
-- APK：[WeChatAIBot-v1.0.0.apk](https://github.com/wxmyyds/WeChatAI-Releases/releases/download/v1.0.0/WeChatAIBot-v1.0.0.apk)
-- 校验文件：[SHA256SUMS.txt](https://github.com/wxmyyds/WeChatAI-Releases/releases/download/v1.0.0/SHA256SUMS.txt)
+- 当前正式版本：[v1.0.2](https://github.com/wxmyyds/WeChatAI-Releases/releases/tag/v1.0.2)
+- APK：[WeChatAIBot-v1.0.2.apk](https://github.com/wxmyyds/WeChatAI-Releases/releases/download/v1.0.0/WeChatAIBot-v1.0.2.apk)
+- 校验文件：[SHA256SUMS.txt](https://github.com/wxmyyds/WeChatAI-Releases/releases/download/v1.0.2/SHA256SUMS.txt)
 
 本仓库只提供编译产物。源代码维护在私有仓库中。
 
